@@ -1,0 +1,11 @@
+import mongoose from 'mongoose';
+import {ORDER_STATUSES} from './order-status.js';
+const {Schema, model} = mongoose;
+const CITIES=['Chandigarh','Amritsar','Ludhiana','Jalandhar','Patiala','Bathinda','Mohali'];
+const userSchema = new Schema({name:{type:String,required:true,trim:true},email:{type:String,required:true,unique:true,lowercase:true,trim:true},password:{type:String,required:true,select:false},phone:String,address:String,role:{type:String,enum:['user','admin'],default:'user'}},{timestamps:true});
+const restaurantSchema = new Schema({name:{type:String,required:true},description:String,image:String,cuisine:String,rating:{type:Number,default:4.5,min:0,max:5},deliveryTime:String,address:String,city:{type:String,enum:CITIES,default:'Chandigarh',index:true},minimumOrder:{type:Number,default:0},demoListing:{type:Boolean,default:false}},{timestamps:true});
+const foodSchema = new Schema({name:{type:String,required:true},description:String,price:{type:Number,required:true,min:0},image:String,category:{type:Schema.Types.ObjectId,ref:'Category'},restaurantId:{type:Schema.Types.ObjectId,ref:'Restaurant',required:true},available:{type:Boolean,default:true}},{timestamps:true});
+const categorySchema = new Schema({name:{type:String,required:true,unique:true},image:String});
+const orderSchema = new Schema({userId:{type:Schema.Types.ObjectId,ref:'User',required:true},idempotencyKey:String,items:[{foodId:{type:Schema.Types.ObjectId,ref:'Food'},name:String,image:String,price:Number,quantity:{type:Number,min:1}}],restaurantId:{type:Schema.Types.ObjectId,ref:'Restaurant'},city:{type:String,enum:CITIES,default:'Chandigarh',index:true},deliveryAddress:{type:String,required:true},phone:{type:String,required:true},subtotal:Number,deliveryFee:Number,totalAmount:Number,paymentMethod:{type:String,enum:['Cash on Delivery'],default:'Cash on Delivery'},status:{type:String,enum:ORDER_STATUSES,default:'Pending'},statusHistory:[{status:{type:String,enum:ORDER_STATUSES,required:true},changedAt:{type:Date,required:true}}]},{timestamps:true});
+orderSchema.index({userId:1,idempotencyKey:1},{unique:true,partialFilterExpression:{idempotencyKey:{$type:'string'}}});
+export const User=model('User',userSchema),Restaurant=model('Restaurant',restaurantSchema),Food=model('Food',foodSchema),Category=model('Category',categorySchema),Order=model('Order',orderSchema);

@@ -102,3 +102,5 @@ body{background:#f7f9fc;color:#132746}
 .buttonGhost:hover{background:#f0f6ff;color:#1d4db3;border-color:#bdd1ed;box-shadow:0 6px 16px #17365712}
 .checkoutAuthGate>.underLink{margin:0;color:#466486}
 @media(max-width:560px){.checkoutAuthGate{margin:0 auto 20px;padding:27px 19px;border-radius:16px}.checkoutAuthGate p{font-size:13px}.authGateActions{flex-direction:column}.authGateActions .button{width:100%}}
+
+.ctaFoodArt{width:100%;height:100%;display:block;object-fit:cover}.ctaImage>span{right:18px;bottom:17px;padding:11px 13px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(17,37,69,.82);box-shadow:0 8px 22px #17365733;font-size:11px;line-height:1.25}

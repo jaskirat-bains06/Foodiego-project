@@ -1,7 +1,9 @@
 node_modules/
 .npm-cache/
 client/dist/
+client/.build-check/
 server/.env
 .env
 *.log
 .DS_Store
+.vercel/

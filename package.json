@@ -1,6 +1,8 @@
 {
   "name": "foodiego",
   "private": true,
-  "scripts": {"dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"", "install:all": "npm install --prefix server && npm install --prefix client", "seed": "npm run seed --prefix server", "seed:punjab": "npm run seed:punjab --prefix server", "seed:chandigarh": "npm run seed:chandigarh --prefix server", "test": "npm test --prefix server"},
+  "type": "module",
+  "engines": {"node": ">=22"},
+  "scripts": {"dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"", "install:all": "npm install --prefix server && npm install --prefix client", "build": "npm run build --prefix client", "seed": "npm run seed --prefix server", "seed:punjab": "npm run seed:punjab --prefix server", "seed:chandigarh": "npm run seed:chandigarh --prefix server", "test": "npm test --prefix server"},
   "devDependencies": {"concurrently": "^9.1.2"}
 }
